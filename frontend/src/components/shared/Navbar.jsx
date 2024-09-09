@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User } from "lucide-react";
 
 const Navbar = () => {
-  const user = true;
+  const user = false;
 
   return (  
     <div className="bg-white">
@@ -29,8 +29,8 @@ const Navbar = () => {
 
           {!user ? (
             <div className="flex items-center gap-2">
-              <Button variant="outline">Login</Button>
-              <Button className='bg-[#6A38C2] hover:bg-[#5b30a6]'>Sign up</Button>
+              <Link to="/login"><Button variant="outline">Login</Button></Link>
+              <Link to="/signup"><Button className='bg-[#6A38C2] hover:bg-[#5b30a6]'>Sign up</Button></Link>
             </div>
           ) : (
             <Popover>
