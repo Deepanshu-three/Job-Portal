@@ -1,4 +1,4 @@
-import { User } from "../models/ user.model"
+import { User } from "../models/ user.model.js"
 import bcrypt from 'bcryptjs'
 import  jwt from "jsonwebtoken"
 
@@ -28,7 +28,7 @@ export const register = async(req, res) => {
         await User.create({
             fullName,
             email,
-            phoneNo,
+            phoneNumber : phoneNo,
             password : hashedPassword,
             role,
         })
@@ -46,7 +46,7 @@ export const login = async(req, res) => {
 
     try {
 
-        const {email, password, roll} = req.body;
+        const {email, password, role} = req.body;
         if( !email ||  !password || !role){
             return res.status(400).json({
                 message: "Something is missing",
@@ -86,7 +86,8 @@ export const login = async(req, res) => {
         const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {expiresIn: '1d'})
 
         return res.status(200).cookie("token", token, {maxAge : 1 + 24 + 60 + 60 + 1000, httpOnly : true, sameSite: 'strict'}).json({
-            message: `Welcome back ${user.fullName}`
+            message: `Welcome back ${user.fullName}`,
+            success: true
         })
 
     } catch (error) {

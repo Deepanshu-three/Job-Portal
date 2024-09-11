@@ -1,6 +1,6 @@
 import e from "express";
-import isAuthenticated from "../middleware/usAuthenticated";
-import { getCompany, getCompanyById, registerCompany, updateCompany } from "../controllers/company.controller";
+import isAuthenticated from "../middleware/usAuthenticated.js";
+import { getCompany, getCompanyById, registerCompany, updateCompany } from "../controllers/company.controller.js";
 
 const router = e.Router();
 

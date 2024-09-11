@@ -6,6 +6,12 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader2 } from "lucide-react";
+import axios from "axios";
+import { USER_API_END_POINT } from "@/utils/constant";
+import { setLoading } from "@/redux/authSlice";
+
 
 const Login = () => {
 
@@ -16,6 +22,8 @@ const Login = () => {
   })
 
   const nevigate = useNavigate()
+  const dispatch = useDispatch()
+  const {loading} = useSelector(store => store.auth)
 
   const changeEventHandler = (e) => {
     setInput({...input, [e.target.name]: e.target.value})
@@ -24,13 +32,16 @@ const Login = () => {
   const submitHandler = async(e) => {
     e.preventDefault();
     try {
-      
+      dispatch(setLoading(true))
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
         headers: {
           "Content-Type":"application/json"
         },
         withCredentials: true
       })
+      console.log(res)
+      console.log(input)
+      console.log(USER_API_END_POINT)
       if(res.data.success){
         toast.success(res.data.message)
         nevigate("/")
@@ -38,7 +49,9 @@ const Login = () => {
 
     } catch (error) {
       console.log(error)
-      toast.error(error.res.data.message)
+      toast.error(error.response.data.message)
+    }finally{
+      dispatch(setLoading(false))
     }
   }
 
@@ -74,8 +87,11 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-
-          <Button type="submit" className="w-full my-4">Login</Button>
+          {
+            loading ? <Button className="w-full my-4"><Loader2 className="mr-2 h-4 w-4 animate-spin"/></Button> : 
+            <Button type="submit"  className="w-full my-4">Login</Button>
+          }
+          
           <span>Don't have an account? <Link to="/singup" className="text-blue-500 text-lg">Sign Up</Link></span>
         </form>
       </div>

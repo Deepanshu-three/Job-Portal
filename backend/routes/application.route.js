@@ -1,5 +1,5 @@
 import e from "express";
-import isAuthenticated from "../middleware/usAuthenticated";
+import isAuthenticated from "../middleware/usAuthenticated.js";
 import { applyJob, getApplicants, getAppliedJobs, updateStatus } from "../controllers/application.controller.js";
 
 const router = e.Router();

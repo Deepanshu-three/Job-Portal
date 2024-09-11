@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
 
 const Signup = () => {
 
@@ -21,6 +23,8 @@ const Signup = () => {
   })
 
   const nevigate = useNavigate()
+  const {loading} = useSelector(store=>store.auth)
+  const dispatch = useDispatch();
 
   const changeEventHandler = (e) => {
     setInput({...input, [e.target.name]: e.target.value})
@@ -33,17 +37,25 @@ const Signup = () => {
   const submitHandler = async(e) => {
     e.preventDefault();
 
-    const formData = new formData();
+    const formData = new FormData();
     formData.append("fullName", input.fullName)
     formData.append("email", input.email)
-    formData.append("phoneNumber", input.phoneNumber)
+    formData.append("phoneNo", input.phoneNumber)
     formData.append("password", input.password)
     formData.append("role", input.role)
     if(input.file){
       formData.append("file", input.file)
     }    
 
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ': ' + pair[1]);
+    // }
+    
+
     try {
+
+      dispatch(setLoading(true))
+      console.log("hi")
       
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
@@ -51,6 +63,7 @@ const Signup = () => {
         },
         withCredentials: true
       })
+
       if(res.data.success){
         toast.success(res.data.message)
         nevigate("/login")
@@ -58,7 +71,9 @@ const Signup = () => {
 
     } catch (error) {
       console.log(error)
-      toast.error(error.res.data.message)
+      toast.error(error.response.data.message)
+    }finally{
+      dispatch(setLoading(false))
     }
   }
 
@@ -108,7 +123,10 @@ const Signup = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full my-4">SignUp</Button>
+          {
+            loading ? <Button className="w-full my-4"><Loader2 className="mr-2 h-4 w-4 animate-spin"/></Button> : 
+            <Button type="submit" className="w-full my-4">SignUp</Button>
+          }
           <span>Already have an account? <Link to="/login" className="text-blue-500 text-lg">Login</Link></span>
         </form>
       </div>

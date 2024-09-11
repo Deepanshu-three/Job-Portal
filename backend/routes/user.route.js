@@ -1,7 +1,7 @@
 import e from "express";
-import { login, logout, register, updateProfile } from "../controllers/user.controller";
-import isAuthenticated from "../middleware/usAuthenticated";
-import { singleUpload } from "../middleware/multer";
+import { login, logout, register, updateProfile } from "../controllers/user.controller.js";
+import isAuthenticated from "../middleware/usAuthenticated.js";
+import { singleUpload } from "../middleware/multer.js";
 
 const router = e.Router();
 
