@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
-import { setLoading } from "@/redux/authSlice";
+import { setLoading, setUser } from "@/redux/authSlice";
 
 
 const Login = () => {
@@ -43,6 +43,7 @@ const Login = () => {
       console.log(input)
       console.log(USER_API_END_POINT)
       if(res.data.success){
+        dispatch(setUser(res.data.user))
         toast.success(res.data.message)
         nevigate("/")
       }
