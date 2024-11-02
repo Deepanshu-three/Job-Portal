@@ -1,3 +1,0 @@
-MONGO_URI="mongodb uri"
-PORT="port number"
-SECRET_KEY="secret key"
