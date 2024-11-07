@@ -20,8 +20,9 @@ const corsOptions = {
     origin: 'http://localhost:5173', // Your React app URL
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization', 'application/json'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify header names only
 };
+
 app.use(cors(corsOptions));
 
 
