@@ -3,7 +3,7 @@ version: '3.8'
 services:
   frontend:
     build:
-      image: deepanshuthree/frontend
+      image: deepanshuthree/frontend:latest
     ports:
       - "5173:5173"
     depends_on:
@@ -12,7 +12,7 @@ services:
 
   backend:
     build:
-      image: deepanshuthree/backend
+      image: deepanshuthree/backend:latest
     ports:
       - "8000:8000"
     env_file:
