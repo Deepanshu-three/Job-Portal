@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      image: deepanshuthree/frontend:latest
+    image: deepanshuthree/frontend:latest  # Use image instead of build
     ports:
       - "5173:5173"
     depends_on:
@@ -11,8 +10,7 @@ services:
     restart: unless-stopped  # Ensure frontend container restarts if it fails
 
   backend:
-    build:
-      image: deepanshuthree/backend:latest
+    image: deepanshuthree/backend:latest  # Use image instead of build
     ports:
       - "8000:8000"
     env_file:
