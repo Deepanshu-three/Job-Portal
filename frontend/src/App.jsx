@@ -12,6 +12,7 @@ import CompanyCreate from './components/admin/CompanyCreate'
 import CompanySetup from './components/admin/CompanySetup'
 import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from './components/admin/PostJob'
+
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 
@@ -23,7 +24,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: '/login',
-    
+
     element: <Login />
   },
   {
