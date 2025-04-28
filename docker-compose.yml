@@ -3,8 +3,7 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      image: deepanshuthree/frontend
     ports:
       - "5173:5173"
     depends_on:
@@ -13,8 +12,7 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      image: deepanshuthree/backend
     ports:
       - "8000:8000"
     env_file:
